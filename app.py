@@ -23,8 +23,7 @@ When the user sends you any message:
 def chat(message, history):
     messages = [{"role": "system", "content": SYS_PROMPT}]
     for h in history:
-        messages.append({"role": "user", "content": h[0]})
-        messages.append({"role": "assistant", "content": h[1]})
+        messages.append({"role": h["role"], "content": h["content"]})
     messages.append({"role": "user", "content": message})
 
     response = client.chat_completion(messages=messages, max_tokens=500)
@@ -37,4 +36,4 @@ demo = gr.ChatInterface(
 
 )
 
-demo.launch(server_name="0.0.0.0", share=True)
+demo.launch(server_name="0.0.0.0")
