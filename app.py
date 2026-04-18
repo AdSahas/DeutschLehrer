@@ -22,9 +22,12 @@ When the user sends you any message:
 
 def chat(message, history):
     messages = [{"role": "system", "content": SYS_PROMPT}]
-    for human, assistant in history:
-        messages.append({"role": "user", "content": human})
-        messages.append({"role": "assistant", "content": assistant})
+    for h in history:
+        if isinstance(h, dict):
+            messages.append({"role": h["role"], "content": h["content"]})
+        else:
+            messages.append({"role": "user", "content": h[0]})
+            messages.append({"role": "assistant", "content": h[1]})
     messages.append({"role": "user", "content": message})
 
     response = client.chat_completion(messages=messages, max_tokens=500)
@@ -34,6 +37,7 @@ demo = gr.ChatInterface(
     fn=chat,
     title="German Tutor Chatbot",
     description="Chat with a friendly German language tutor.",
+    type="messages"
 )
 
 demo.launch(server_name="0.0.0.0")
