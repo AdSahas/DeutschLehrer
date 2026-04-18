@@ -6,8 +6,8 @@ import os
 load_dotenv()
 
 client = InferenceClient(
-    "HuggingFaceH4/zephyr-7b-beta",
-    token=os.getenv("API_KEY")
+    provider="hf-inference",
+    api_key=os.getenv("API_KEY")
 )
 
 SYS_PROMPT = """You are a friendly German language tutor. 
@@ -32,7 +32,11 @@ if prompt := st.chat_input("Ask me anything in English..."):
         st.write(prompt)
 
     messages = [{"role": "system", "content": SYS_PROMPT}] + st.session_state.messages
-    response = client.chat_completion(messages=messages, max_tokens=500)
+    response = client.chat.completions.create(
+        model="mistralai/Mistral-7B-Instruct-v0.3",
+        messages=messages,
+        max_tokens=500
+    )
     reply = response.choices[0].message.content
 
     st.session_state.messages.append({"role": "assistant", "content": reply})
