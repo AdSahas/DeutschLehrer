@@ -6,7 +6,7 @@ load_dotenv()
 import os
 
 client = InferenceClient(
-    "meta-llama/Meta-Llama-3-8B-Instruct",
+    "mistralai/Mistral-7B-Instruct-v0.3",
     token=os.getenv("API_KEY")
 )
 
@@ -34,7 +34,7 @@ demo = gr.ChatInterface(
     fn = chat,
     title = "German Tutor Chatbot",
     description = "Chat with a friendly German language tutor. Ask any question or send any message, and the tutor will translate it into German, explain the grammar, and provide an example sentence.",
-    examples = ["How do I say hello?", "Which grammar case do I use for 'durch'?"]
+
 )
 
 demo.launch()
