@@ -22,18 +22,18 @@ When the user sends you any message:
 
 def chat(message, history):
     messages = [{"role": "system", "content": SYS_PROMPT}]
-    for h in history:
-        messages.append({"role": h["role"], "content": h["content"]})
+    for human, assistant in history:
+        messages.append({"role": "user", "content": human})
+        messages.append({"role": "assistant", "content": assistant})
     messages.append({"role": "user", "content": message})
 
     response = client.chat_completion(messages=messages, max_tokens=500)
     return response.choices[0].message.content
 
 demo = gr.ChatInterface(
-    fn = chat,
-    title = "German Tutor Chatbot",
-    description = "Chat with a friendly German language tutor. Ask any question or send any message, and the tutor will translate it into German, explain the grammar, and provide an example sentence.",
-
+    fn=chat,
+    title="German Tutor Chatbot",
+    description="Chat with a friendly German language tutor.",
 )
 
 demo.launch(server_name="0.0.0.0")
