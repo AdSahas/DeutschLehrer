@@ -6,7 +6,7 @@ import os
 load_dotenv()
 
 client = InferenceClient(
-    "mistralai/Mistral-7B-Instruct-v0.3",
+    "HuggingFaceH4/zephyr-7b-beta",
     token=os.getenv("API_KEY")
 )
 
