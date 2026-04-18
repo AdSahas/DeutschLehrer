@@ -33,7 +33,7 @@ if prompt := st.chat_input("Ask me anything in English..."):
 
     messages = [{"role": "system", "content": SYS_PROMPT}] + st.session_state.messages
     response = client.chat.completions.create(
-        model="mistralai/Mistral-7B-Instruct-v0.3",
+        model="meta-llama/Llama-3.2-3B-Instruct",
         messages=messages,
         max_tokens=500
     )
